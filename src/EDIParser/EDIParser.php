@@ -50,6 +50,8 @@ class EDIParser
             }
         }
 
+        $this->sData = NULL;
+
         try {
             $this->sType = $this->UNH->getMessageType();
 

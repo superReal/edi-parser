@@ -10,7 +10,7 @@
 namespace EDIParser;
 
 require_once "PHPUnit/Autoload.php";
-require_once "../vendor/autoload.php";
+require_once "../../vendor/autoload.php";
 
 class PAORESTest extends \PHPUnit_Framework_TestCase {
 

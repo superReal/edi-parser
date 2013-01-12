@@ -32,7 +32,11 @@ class INVRPT {
         }
     }
 
-    public function getLineItems() {
+    public function getSegments() {
+        return $this->aSegments;
+    }
 
+    public function getLineItems() {
+        return $this->aLineItems;
     }
 }
