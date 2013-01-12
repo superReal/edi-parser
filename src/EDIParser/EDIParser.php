@@ -59,4 +59,24 @@ class EDIParser
             throw new EDIParserException("Unknown Message Type");
         }
     }
+
+    public function getUNB()
+    {
+        return $this->UNB;
+    }
+
+    public function getUNH()
+    {
+        return $this->UNH;
+    }
+
+    public function getOMessage()
+    {
+        return $this->oMessage;
+    }
+
+    public function getSType()
+    {
+        return $this->sType;
+    }
 }
