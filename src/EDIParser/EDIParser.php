@@ -5,7 +5,10 @@
  * Date: 10.01.13
  * Time: 16:38
  * To change this template use File | Settings | File Templates.
- */ 
+ */
+
+namespace EDIParser;
+
 class EDIParser
 {
 
@@ -16,8 +19,9 @@ class EDIParser
 
     public function __construct($path) {
         $this->sData = file_get_contents($path);
+        $this->sData = str_replace("\n", "", $this->sData);         //Strip Line Breaks
         if (!$this->sData) {
-            throw new InvalidArgumentException("No File found or no data present.");
+            throw new \InvalidArgumentException("No File found or no data present.");
         }
     }
 
@@ -35,19 +39,24 @@ class EDIParser
         $aSegments = array();
         foreach(explode($delimiters['sT'], $this->sData) as $sSegment) {
             if ($sSegment != "") {
-                $oSegment = new Segment($sSegment, $delimiters);
+                $oSegment = new Elements\Segment($sSegment, $delimiters);
                 $sIdentifier = $oSegment->getIdentifier();
                 if (in_array($sIdentifier, $envelopeDataFields)) {
-                    $this->$sIdentifier = new $sIdentifier($oSegment);
+                    $sClassname = "\\EDIParser\\Fields\\".$sIdentifier;
+                    $this->$sIdentifier = new $sClassname($oSegment);
                 } elseif ($sIdentifier != "UNA") {
                     array_push($aSegments, $oSegment);
                 }
             }
         }
 
-        $this->sType = $this->UNH->getMessageType();
+        try {
+            $this->sType = $this->UNH->getMessageType();
 
-        $class = new ReflectionClass($this->sType);
-        $this->oMessage = $class->newInstanceArgs(array($aSegments));
+            $class = new \ReflectionClass("\\EDIParser\\Messages\\".$this->sType);
+            $this->oMessage = $class->newInstanceArgs(array($aSegments));
+        } catch (\ReflectionException $e) {
+            throw new EDIParserException("Unknown Message Type");
+        }
     }
 }

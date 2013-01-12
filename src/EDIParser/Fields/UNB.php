@@ -5,8 +5,11 @@
  * Date: 11.01.13
  * Time: 12:22
  * To change this template use File | Settings | File Templates.
- */ 
-class UNB extends SegmentDecorator
+ */
+
+namespace EDIParser\Fields;
+
+class UNB extends \EDIParser\Elements\SegmentDecorator
 {
 
     public function getSyntaxIdentifier() {

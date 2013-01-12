@@ -5,7 +5,10 @@
  * Date: 11.01.13
  * Time: 15:51
  * To change this template use File | Settings | File Templates.
- */ 
+ */
+
+namespace EDIParser\Messages;
+
 class INVRPT {
 
     protected $aAllowedfields = array('BGM', 'NAD', 'DTM', 'LIN', 'QTY');
@@ -20,15 +23,13 @@ class INVRPT {
             $sIdentifier = $oSegment->getIdentifier();
             if (in_array($sIdentifier, $this->aAllowedfields)) {
                 if ($sIdentifier == 'LIN') {
-                    array_push($this->aLineItems, new LIN($oSegment, new QTY($aSegments[$sKey+1])));
+                    array_push($this->aLineItems, new \EDIParser\Fields\LIN($oSegment, new \EDIParser\Fields\QTY($aSegments[$sKey+1])));
                 } elseif ($sIdentifier != 'QTY') {
-                    array_push($this->aSegments, new $sIdentifier($oSegment));
+                    $sClassname = "\\EDIParser\\Fields\\".$sIdentifier;
+                    array_push($this->aSegments, new $sClassname($oSegment));
                 }
             }
         }
-
-        var_dump($this->aSegments);
-        var_dump($this->aLineItems);
     }
 
     public function getLineItems() {

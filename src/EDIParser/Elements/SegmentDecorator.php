@@ -5,7 +5,10 @@
  * Date: 11.01.13
  * Time: 12:26
  * To change this template use File | Settings | File Templates.
- */ 
+ */
+
+namespace EDIParser\Elements;
+
 abstract class SegmentDecorator implements SegmentInterface
 {
     protected $segment;

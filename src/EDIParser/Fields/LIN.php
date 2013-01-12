@@ -5,12 +5,15 @@
  * Date: 11.01.13
  * Time: 16:26
  * To change this template use File | Settings | File Templates.
- */ 
-class LIN extends SegmentDecorator {
+ */
+
+namespace EDIParser\Fields;
+
+class LIN extends \EDIParser\Elements\SegmentDecorator {
 
     public $oQTY;
 
-    public function __construct(SegmentInterface $oSegment, QTY $oQTY) {
+    public function __construct(\EDIParser\Elements\SegmentInterface $oSegment, QTY $oQTY) {
         $this->oQTY = $oQTY;
         parent::__construct($oSegment);
     }

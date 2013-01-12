@@ -3,19 +3,24 @@
  * Created by JetBrains PhpStorm.
  * User: moritzkroeger
  * Date: 11.01.13
- * Time: 16:26
+ * Time: 16:27
  * To change this template use File | Settings | File Templates.
- */ 
-class QTY extends SegmentDecorator {
-    public function getQuantityQualifier() {
+ */
+
+namespace EDIParser\Fields;
+
+class DTM extends \EDIParser\Elements\SegmentDecorator {
+
+    public function getDateQualifier() {
         return $this->getElement(1,0);
     }
 
-    public function getQuantity() {
+    public function getDate() {
         return $this->getElement(1,1);
     }
 
-    public function getMeasureUnit() {
+    public function getFormatQualifier() {
         return $this->getElement(1,2);
     }
+
 }
