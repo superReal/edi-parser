@@ -15,21 +15,21 @@ require_once "../../vendor/autoload.php";
 class INVRPTTest extends \PHPUnit_Framework_TestCase
 {
 
-    protected $parser;
+    static $parser;
 
-    protected function setUp() {
-        $this->parser = new EDIParser(__DIR__ . "/JCLInvrpt_short.edi");
-        $this->parser->parse();
+    public static function setUpBeforeClass() {
+        self::$parser = new EDIParser(__DIR__ . "/JCLInvrpt_short.edi");
+        self::$parser->parse();
     }
 
     public function testParseINVRPT() {
-        $this->assertAttributeInstanceOf("\\EDIParser\\Messages\\INVRPT", "oMessage", $this->parser);
-        $this->assertAttributeInstanceOf("\\EDIParser\\Fields\\UNB", "UNB", $this->parser);
-        $this->assertAttributeInstanceOf("\\EDIParser\\Fields\\UNH", "UNH", $this->parser);
-        $this->assertAttributeInstanceOf("\\EDIParser\\Fields\\UNT", "UNT", $this->parser);
-        $this->assertAttributeInstanceOf("\\EDIParser\\Fields\\UNZ", "UNZ", $this->parser);
+        $this->assertAttributeInstanceOf("\\EDIParser\\Messages\\INVRPT", "oMessage", self::$parser);
+        $this->assertAttributeInstanceOf("\\EDIParser\\Fields\\UNB", "UNB", self::$parser);
+        $this->assertAttributeInstanceOf("\\EDIParser\\Fields\\UNH", "UNH", self::$parser);
+        $this->assertAttributeInstanceOf("\\EDIParser\\Fields\\UNT", "UNT", self::$parser);
+        $this->assertAttributeInstanceOf("\\EDIParser\\Fields\\UNZ", "UNZ", self::$parser);
 
-        $message = $this->parser->getOMessage();
+        $message = self::$parser->getOMessage();
         $this->assertAttributeCount(6, "aSegments", $message);
         $this->assertAttributeCount(6, "aLineItems", $message);
     }

@@ -11,7 +11,7 @@ namespace EDIParser\Fields;
 
 class LIN extends \EDIParser\Elements\SegmentDecorator {
 
-    public $oQTY;
+    protected $oQTY;
 
     public function __construct(\EDIParser\Elements\SegmentInterface $oSegment, QTY $oQTY) {
         $this->oQTY = $oQTY;
@@ -32,6 +32,18 @@ class LIN extends \EDIParser\Elements\SegmentDecorator {
 
     public function getItemNumberType() {
         return $this->getElement(3,1);
+    }
+
+    public function getQuantityQualifier() {
+        return $this->oQTY->getElement(1,0);
+    }
+
+    public function getQuantity() {
+        return $this->oQTY->getElement(1,1);
+    }
+
+    public function getMeasureUnit() {
+        return $this->oQTY->getElement(1,2);
     }
 
 }
