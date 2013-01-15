@@ -1,12 +1,12 @@
 {
-    "name": "mcrip/ediparser",
+    "name": "superReal/ediparser",
     "require-dev": {
         "phpunit/phpunit": "3.7.x-dev"
     },
     "authors": [
         {
             "name": "Moritz Kroeger",
-            "email": "moritz.kroeger@gmail.com"
+            "email": "m.kroeger@superreal.de"
         }
     ],
     "require": {
