@@ -12,11 +12,32 @@ namespace EDIParser;
 class EDIParser
 {
 
+    /**
+     * unparsed data from file
+     * @var string
+     */
     protected $sData;
+    /**
+     * parsed Message Object
+     * @var Messages\INVRPT|mixed
+     */
     protected $oMessage;
+    /**
+     * Message type
+     * @var string
+     */
     protected $sType;
+    /**
+     * Special Segments
+     */
     protected $UNB, $UNH, $UNT, $UNZ;
 
+    /**
+     * Construct a new EDIParser Instance
+     * Needs a path to to a file that should be parsed
+     * @param $path string
+     * @throws \InvalidArgumentException
+     */
     public function __construct($path) {
         $this->sData = file_get_contents($path);
         $this->sData = str_replace("\n", "", $this->sData);         //Strip Line Breaks
@@ -25,6 +46,10 @@ class EDIParser
         }
     }
 
+    /**
+     * Parses the file which the instance was initialized
+     * @throws EDIParserException
+     */
     public function parse() {
         $aS = str_split(substr($this->sData, 0, 9));
 
@@ -62,21 +87,37 @@ class EDIParser
         }
     }
 
+    /**
+     * Return Interchange Header
+     * @return Fields\UNB
+     */
     public function getUNB()
     {
         return $this->UNB;
     }
 
+    /**
+     * Return Message Header (http://www.unece.org/trade/untdid/d13b/trsd/trsdunh.htm)
+     * @return Fields\UNH
+     */
     public function getUNH()
     {
         return $this->UNH;
     }
 
+    /**
+     * Return parsed message object.
+     * @return Messages\INVRPT|mixed
+     */
     public function getOMessage()
     {
         return $this->oMessage;
     }
 
+    /**
+     * Returns message Type
+     * @return string
+     */
     public function getSType()
     {
         return $this->sType;
